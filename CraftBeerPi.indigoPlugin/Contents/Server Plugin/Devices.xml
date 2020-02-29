@@ -1,0 +1,460 @@
+<?xml version='1.0'?>
+<Devices>
+	<Device id='cbpi-server' type='sensor'>
+		<Name>CBPi Server</Name>
+		<ConfigUI>
+			<Field id='cbpi_address' type='textfield'>
+				<Label>CBPi Server Host or IP</Label>
+			</Field>
+			<Field id='cbpi_port' type='textfield' defaultValue='8008'>
+				<Label>CBPi Server Port</Label>
+			</Field>
+			<Field id='update_frequency' type='menu' defaultValue='60'>
+				<Label>Update Frequency:</Label>
+				<List>
+					<Option value="5">5 Seconds</Option>
+					<Option value="10">10 Seconds</Option>
+					<Option value="15">15 Seconds</Option>
+					<Option value="30">30 Seconds</Option>
+					<Option value="60">1 Minute</Option>
+					<Option value="120">2 Minutes</Option>
+					<Option value="300">5 Minutes</Option>
+					<Option value="600">10 Minutes</Option>
+					<Option value="900">15 Minutes</Option>
+					<Option value="1800">30 Minutes</Option>
+					<Option value="3600">1 Hour</Option>
+				</List>
+			</Field>
+			<Field id='SupportsSensorValue' type='checkbox' defaultValue='false' hidden='true' />
+			<Field id='SupportsOnState' type='checkbox' defaultValue='true' hidden='true' />
+		</ConfigUI>
+		<States>
+			<State id='status'>
+                <ValueType>
+                    <List>
+                        <Option value='online'>Online</Option>
+                        <Option value='offline'>Offline</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Status Changes</TriggerLabel>
+                <TriggerLabelPrefix>Status is</TriggerLabelPrefix>
+                <ControlPageLabel>Status</ControlPageLabel>
+                <ControlPageLabelPrefix>Status is</ControlPageLabelPrefix>
+            </State>
+			<State id='brewery'>
+                <ValueType>String</ValueType>
+                <TriggerLabel>Brewery Name</TriggerLabel>
+                <TriggerLabelPrefix>Brewery Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Brewery Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Brewery Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='brew_name'>
+                <ValueType>String</ValueType>
+                <TriggerLabel>Brew Name</TriggerLabel>
+                <TriggerLabelPrefix>Brew Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Brew Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Brew Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='message'>
+                <ValueType>String</ValueType>
+                <TriggerLabel>Message</TriggerLabel>
+                <TriggerLabelPrefix>Message is</TriggerLabelPrefix>
+                <ControlPageLabel>Message</ControlPageLabel>
+                <ControlPageLabelPrefix>Message is</ControlPageLabelPrefix>
+            </State>
+			<State id='step_name'>
+                <ValueType>String</ValueType>
+                <TriggerLabel>Step Name</TriggerLabel>
+                <TriggerLabelPrefix>Step Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Step Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Step Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='step_number'>
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Step Number</TriggerLabel>
+                <TriggerLabelPrefix>Step Number is</TriggerLabelPrefix>
+                <ControlPageLabel>Step Number</ControlPageLabel>
+                <ControlPageLabelPrefix>Step Number is</ControlPageLabelPrefix>
+            </State>
+		</States>
+		<UiDisplayStateId>status</UiDisplayStateId>
+	</Device>
+	<Device id='cbpi-sensor' type='sensor'>
+		<Name>CBPi Sensor</Name>
+		<ConfigUI>
+			<Field id='server_id' type='menu'>
+				<Label>CBPi Server Device</Label>
+				<List class='indigo.devices' filter='self.cbpi-server'/>
+				<CallbackMethod>dummyCallback</CallbackMethod>
+			</Field>
+			<Field id='cbpi_id' type='menu'>
+				<Label>Sensor Object</Label>
+				<List class='self' filter='sensors' method='cbpiOblectList' dynamicReload='true'/>
+			</Field>
+			<Field id='SupportsSensorValue' type='checkbox' defaultValue='true' hidden='true' />
+			<Field id='SupportsOnState' type='checkbox' defaultValue='false' hidden='true' />
+		</ConfigUI>
+		<States>
+			<State id='status'>
+                <ValueType>
+                    <List>
+                        <Option value='online'>Online</Option>
+                        <Option value='offline'>Offline</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Status Changes</TriggerLabel>
+                <TriggerLabelPrefix>Status is</TriggerLabelPrefix>
+                <ControlPageLabel>Status</ControlPageLabel>
+                <ControlPageLabelPrefix>Status is</ControlPageLabelPrefix>
+            </State>
+			<State id='name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Name</TriggerLabel>
+                <TriggerLabelPrefix>Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='type'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Type</TriggerLabel>
+                <TriggerLabelPrefix>Type is</TriggerLabelPrefix>
+                <ControlPageLabel>Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Type is</ControlPageLabelPrefix>
+            </State>
+		</States>
+	</Device>
+	<Device id='cbpi-actor' type='sensor'>
+		<Name>CBPi Actor</Name>
+		<ConfigUI>
+			<Field id='server_id' type='menu'>
+				<Label>CBPi Server Device</Label>
+				<List class='indigo.devices' filter='self.cbpi-server'/>
+				<CallbackMethod>dummyCallback</CallbackMethod>
+			</Field>
+			<Field id='cbpi_id' type='menu'>
+				<Label>Actor Object</Label>
+				<List class='self' filter='actors' method='cbpiOblectList' dynamicReload='true'/>
+			</Field>
+			<Field id='SupportsSensorValue' type='checkbox' defaultValue='false' hidden='true' />
+			<Field id='SupportsOnState' type='checkbox' defaultValue='true' hidden='true' />
+		</ConfigUI>
+		<States>
+			<State id='status'>
+                <ValueType>
+                    <List>
+						<Option value='running'>Online</Option>
+						<Option value='stopped'>Online</Option>
+                        <Option value='offline'>Offline</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Status Changes</TriggerLabel>
+                <TriggerLabelPrefix>Status is</TriggerLabelPrefix>
+                <ControlPageLabel>Status</ControlPageLabel>
+                <ControlPageLabelPrefix>Status is</ControlPageLabelPrefix>
+            </State>
+			<State id='name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Name</TriggerLabel>
+                <TriggerLabelPrefix>Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='type'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Type</TriggerLabel>
+                <TriggerLabelPrefix>Type is</TriggerLabelPrefix>
+                <ControlPageLabel>Type</ControlPageLabel>
+                <ControlPageLabelPrefix>Type is</ControlPageLabelPrefix>
+            </State>
+			<State id='power'>
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Power</TriggerLabel>
+                <TriggerLabelPrefix>Power is</TriggerLabelPrefix>
+                <ControlPageLabel>Power</ControlPageLabel>
+                <ControlPageLabelPrefix>Power is</ControlPageLabelPrefix>
+			</State>
+		</States>
+	</Device>
+	<Device id='cbpi-kettle' type='sensor'>
+		<Name>CBPi Kettle</Name>
+		<ConfigUI>
+			<Field id='server_id' type='menu'>
+				<Label>CBPi Server Device</Label>
+				<List class='indigo.devices' filter='self.cbpi-server'/>
+				<CallbackMethod>dummyCallback</CallbackMethod>
+			</Field>
+			<Field id='cbpi_id' type='menu'>
+				<Label>Actor Object</Label>
+				<List class='self' filter='kettles' method='cbpiOblectList' dynamicReload='true'/>
+			</Field>
+			<Field id='SupportsSensorValue' type='checkbox' defaultValue='true' hidden='true' />
+			<Field id='SupportsOnState' type='checkbox' defaultValue='true' hidden='true' />
+		</ConfigUI>
+		<States>
+			<State id='status'>
+                <ValueType>
+                    <List>
+						<Option value='heating'>Heating</Option>
+						<Option value='active'>Active</Option>
+						<Option value='passive'>Passive</Option>
+                        <Option value='offline'>Offline</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Status Changes</TriggerLabel>
+                <TriggerLabelPrefix>Status is</TriggerLabelPrefix>
+                <ControlPageLabel>Status</ControlPageLabel>
+                <ControlPageLabelPrefix>Status is</ControlPageLabelPrefix>
+            </State>
+			<State id='name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Name</TriggerLabel>
+                <TriggerLabelPrefix>Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='logic'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Logic</TriggerLabel>
+                <TriggerLabelPrefix>Logic is</TriggerLabelPrefix>
+                <ControlPageLabel>Logic</ControlPageLabel>
+                <ControlPageLabelPrefix>Logic is</ControlPageLabelPrefix>
+            </State>
+			<State id='auto'>
+				<ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Auto Mode</TriggerLabel>
+                <TriggerLabelPrefix>Auto Mode is</TriggerLabelPrefix>
+                <ControlPageLabel>Auto Mode</ControlPageLabel>
+                <ControlPageLabelPrefix>Auto Mode is</ControlPageLabelPrefix>
+            </State>
+			<State id='target'>
+				<ValueType>Number</ValueType>
+                <TriggerLabel>Target</TriggerLabel>
+                <TriggerLabelPrefix>Target is</TriggerLabelPrefix>
+                <ControlPageLabel>Target</ControlPageLabel>
+                <ControlPageLabelPrefix>Target is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Sensor Name</TriggerLabel>
+                <TriggerLabelPrefix>Sensor Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor_value'>
+				<ValueType>Number</ValueType>
+                <TriggerLabel>Sensor Value</TriggerLabel>
+                <TriggerLabelPrefix>Sensor Value is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor Value</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor Value is</ControlPageLabelPrefix>
+            </State>
+			<State id='heater_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Heater Name</TriggerLabel>
+                <TriggerLabelPrefix>Heater Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Heater Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Heater Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='heater_state'>
+				<ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Heater State</TriggerLabel>
+                <TriggerLabelPrefix>Heater State is</TriggerLabelPrefix>
+                <ControlPageLabel>Heater State</ControlPageLabel>
+                <ControlPageLabelPrefix>Heater State is</ControlPageLabelPrefix>
+            </State>
+			<State id='heater_power'>
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Heater Power</TriggerLabel>
+                <TriggerLabelPrefix>Heater Power is</TriggerLabelPrefix>
+                <ControlPageLabel>Heater Power</ControlPageLabel>
+                <ControlPageLabelPrefix>Heater Power is</ControlPageLabelPrefix>
+			</State>
+			<State id='agitator_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Agitator Name</TriggerLabel>
+                <TriggerLabelPrefix>Agitator Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Agitator Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Agitator Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='agitator_state'>
+				<ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Agitator State</TriggerLabel>
+                <TriggerLabelPrefix>Agitator State is</TriggerLabelPrefix>
+                <ControlPageLabel>Agitator State</ControlPageLabel>
+                <ControlPageLabelPrefix>Agitator State is</ControlPageLabelPrefix>
+            </State>
+			<State id='agitator_power'>
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Agitator Power</TriggerLabel>
+                <TriggerLabelPrefix>Agitator Power is</TriggerLabelPrefix>
+                <ControlPageLabel>Agitator Power</ControlPageLabel>
+                <ControlPageLabelPrefix>Agitator Power is</ControlPageLabelPrefix>
+			</State>
+		</States>
+	</Device>
+	<Device id='cbpi-fermenter' type='sensor'>
+		<Name>CBPi Fermenter</Name>
+		<ConfigUI>
+			<Field id='server_id' type='menu'>
+				<Label>CBPi Server Device</Label>
+				<List class='indigo.devices' filter='self.cbpi-server'/>
+				<CallbackMethod>dummyCallback</CallbackMethod>
+			</Field>
+			<Field id='cbpi_id' type='menu'>
+				<Label>Actor Object</Label>
+				<List class='self' filter='fermenters' method='cbpiOblectList' dynamicReload='true'/>
+			</Field>
+			<Field id='SupportsSensorValue' type='checkbox' defaultValue='true' hidden='true' />
+			<Field id='SupportsOnState' type='checkbox' defaultValue='true' hidden='true' />
+		</ConfigUI>
+		<States>
+			<State id='status'>
+                <ValueType>
+                    <List>
+						<Option value='cooling'>Cooling</Option>
+						<Option value='heating'>Heating</Option>
+						<Option value='active'>Active</Option>
+						<Option value='passive'>Passive</Option>
+                        <Option value='offline'>Offline</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>Status Changes</TriggerLabel>
+                <TriggerLabelPrefix>Status is</TriggerLabelPrefix>
+                <ControlPageLabel>Status</ControlPageLabel>
+                <ControlPageLabelPrefix>Status is</ControlPageLabelPrefix>
+            </State>
+			<State id='name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Name</TriggerLabel>
+                <TriggerLabelPrefix>Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='logic'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Logic</TriggerLabel>
+                <TriggerLabelPrefix>Logic is</TriggerLabelPrefix>
+                <ControlPageLabel>Logic</ControlPageLabel>
+                <ControlPageLabelPrefix>Logic is</ControlPageLabelPrefix>
+            </State>
+			<State id='auto'>
+				<ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Auto Mode</TriggerLabel>
+                <TriggerLabelPrefix>Auto Mode is</TriggerLabelPrefix>
+                <ControlPageLabel>Auto Mode</ControlPageLabel>
+                <ControlPageLabelPrefix>Auto Mode is</ControlPageLabelPrefix>
+            </State>
+			<State id='brew'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Brew</TriggerLabel>
+                <TriggerLabelPrefix>Brew is</TriggerLabelPrefix>
+                <ControlPageLabel>Brew</ControlPageLabel>
+                <ControlPageLabelPrefix>Brew is</ControlPageLabelPrefix>
+            </State>
+			<State id='target'>
+				<ValueType>Number</ValueType>
+                <TriggerLabel>Target</TriggerLabel>
+                <TriggerLabelPrefix>Target is</TriggerLabelPrefix>
+                <ControlPageLabel>Target</ControlPageLabel>
+                <ControlPageLabelPrefix>Target is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor1_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Sensor 1 Name</TriggerLabel>
+                <TriggerLabelPrefix>Sensor 1 Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor 1 Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor 1 Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor1_value'>
+				<ValueType>Number</ValueType>
+                <TriggerLabel>Sensor 1 Value</TriggerLabel>
+                <TriggerLabelPrefix>Sensor 1 Value is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor 1 Value</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor 1 Value is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor2_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Sensor 2 Name</TriggerLabel>
+                <TriggerLabelPrefix>Sensor 2 Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor 2 Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor 2 Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor2_value'>
+				<ValueType>Number</ValueType>
+                <TriggerLabel>Sensor 2 Value</TriggerLabel>
+                <TriggerLabelPrefix>Sensor 2 Value is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor 2 Value</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor 2 Value is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor3_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Sensor 2 Name</TriggerLabel>
+                <TriggerLabelPrefix>Sensor 3 Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor 3 Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor 3 Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='sensor3_value'>
+				<ValueType>Number</ValueType>
+                <TriggerLabel>Sensor 3 Value</TriggerLabel>
+                <TriggerLabelPrefix>Sensor 3 Value is</TriggerLabelPrefix>
+                <ControlPageLabel>Sensor 3 Value</ControlPageLabel>
+                <ControlPageLabelPrefix>Sensor 3 Value is</ControlPageLabelPrefix>
+            </State>
+			<State id='heater_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Heater Name</TriggerLabel>
+                <TriggerLabelPrefix>Heater Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Heater Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Heater Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='heater_state'>
+				<ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Heater State</TriggerLabel>
+                <TriggerLabelPrefix>Heater State is</TriggerLabelPrefix>
+                <ControlPageLabel>Heater State</ControlPageLabel>
+                <ControlPageLabelPrefix>Heater State is</ControlPageLabelPrefix>
+            </State>
+			<State id='heater_power'>
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Heater Power</TriggerLabel>
+                <TriggerLabelPrefix>Heater Power is</TriggerLabelPrefix>
+                <ControlPageLabel>Heater Power</ControlPageLabel>
+                <ControlPageLabelPrefix>Heater Power is</ControlPageLabelPrefix>
+			</State>
+			<State id='cooler_name'>
+				<ValueType>String</ValueType>
+                <TriggerLabel>Cooler Name</TriggerLabel>
+                <TriggerLabelPrefix>Cooler Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Cooler Name</ControlPageLabel>
+                <ControlPageLabelPrefix>Cooler Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='cooler_state'>
+				<ValueType boolType="OnOff">Boolean</ValueType>
+                <TriggerLabel>Cooler State</TriggerLabel>
+                <TriggerLabelPrefix>Cooler State is</TriggerLabelPrefix>
+                <ControlPageLabel>Cooler State</ControlPageLabel>
+                <ControlPageLabelPrefix>Cooler State is</ControlPageLabelPrefix>
+            </State>
+			<State id='cooler_power'>
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Cooler Power</TriggerLabel>
+                <TriggerLabelPrefix>Cooler Power is</TriggerLabelPrefix>
+                <ControlPageLabel>Cooler Power</ControlPageLabel>
+                <ControlPageLabelPrefix>Cooler Power is</ControlPageLabelPrefix>
+			</State>
+			<State id='step_name'>
+                <ValueType>String</ValueType>
+                <TriggerLabel>Step Name</TriggerLabel>
+                <TriggerLabelPrefix>Step Name is</TriggerLabelPrefix>
+                <ControlPageLabel>Step NAme</ControlPageLabel>
+                <ControlPageLabelPrefix>Step Name is</ControlPageLabelPrefix>
+            </State>
+			<State id='step_number'>
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Step NumberChange</TriggerLabel>
+                <TriggerLabelPrefix>Step Number is</TriggerLabelPrefix>
+                <ControlPageLabel>Step Number</ControlPageLabel>
+                <ControlPageLabelPrefix>Step Number is</ControlPageLabelPrefix>
+            </State>
+		</States>
+	</Device>
+</Devices>
